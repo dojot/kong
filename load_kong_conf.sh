@@ -12,10 +12,10 @@ function get_plugin_names(){
     config="$config $(echo $strings | xargs -n1 | sort -u | xargs | sed 's/ /, /g')"
 }
 
-for d in /plugins/*/ ; do
+for d in $(find . -name *.rockspec -printf "%h\n") ; do
     cd "$d"
     ret=$(grep -r "kong.plugins." *.rockspec) && get_plugin_names $ret && config="$config,"
-    cd ..
+    cd -
 done
 
 config="custom_plugins = $config"

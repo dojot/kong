@@ -8,6 +8,6 @@ ADD load_kong_conf.sh /etc/kong
 
 CMD /etc/kong/load_kong_conf.sh > /etc/kong/kong.conf ; \
     cd /plugins && \
-    for d in ./*/ ; do (cd "$d" && luarocks make ); done ; \
+    for d in $(find . -name *.rockspec -printf "%h\n") ; do (cd "$d" && luarocks make && cd -); done ; \
     kong start
 
