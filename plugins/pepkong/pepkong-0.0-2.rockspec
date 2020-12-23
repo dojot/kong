@@ -9,7 +9,7 @@ source = {
 }
 description = {
   summary = "A Kong plugin, that extract roles from a JWT token and make a request for a Policy Decision Point (PDP)",
-  license = "Apache-2"
+  license = "Apache License, Version 2.0"
 }
 dependencies = {
   "lua ~> 5.1",
