@@ -1,4 +1,4 @@
-FROM kong:2.0.4-alpine
+FROM kong:2.2-alpine
 
 COPY kong.conf /etc/kong/
 
