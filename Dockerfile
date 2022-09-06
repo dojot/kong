@@ -1,4 +1,4 @@
-FROM kong:2.0.4-alpine as builder
+FROM kong:2.2-alpine as builder
 
 USER root
 
@@ -10,7 +10,7 @@ RUN apk add --no-cache git zip && \
     luarocks pack ${LUAROCKS_MODULE}
 
 ## Create image
-FROM kong:2.0.4-alpine
+FROM kong:2.2-alpine
 
 COPY kong.conf /etc/kong/
 
@@ -24,3 +24,5 @@ COPY ./plugins/pepkong /custom-plugins/pepkong
 RUN luarocks make
 
 USER kong
+
+
