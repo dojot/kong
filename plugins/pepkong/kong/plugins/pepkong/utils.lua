@@ -1,18 +1,18 @@
-local utils_module = {}
+local function build_form_params(resource, scope)
 
--- a simple log function
--- TODO: use a real log module
-function utils_module.printToFile(line, txt)
-	local s = "echo \"Linha " .. line .. " - " .. txt .."\"  >> /tmp/lualogs.txt"
-	os.execute(s)
+    local grant_type = "urn:ietf:params:oauth:grant-type:uma-ticket"
+
+    -- define client identifier
+    local client_id_env_var = "DOJOT_PLUGIN_CLIENT_ID"
+    local client_id = "kong"
+    if os.getenv(client_id_env_var) then
+        client_id = os.getenv(client_id_env_var)
+    end
+
+    return "grant_type=" .. grant_type .. "&audience=" .. client_id .. "&permission=" .. resource .. "%23" .. scope ..
+               "&response_mode=decision"
 end
 
--- String split (or explode)
-function utils_module.split(source, delimiters)
-      local elements = {}
-      local pattern = '([^'..delimiters..']+)'
-      string.gsub(source, pattern, function(value) elements[#elements + 1] =     value;  end);
-      return elements
-end
-
-return utils_module
+return {
+    build_form_params = build_form_params
+}
